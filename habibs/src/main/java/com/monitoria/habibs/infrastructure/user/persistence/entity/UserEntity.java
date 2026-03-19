@@ -1,4 +1,4 @@
-package com.monitoria.habibs.infraestructure.user.persistence.entity;
+package com.monitoria.habibs.infrastructure.user.persistence.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

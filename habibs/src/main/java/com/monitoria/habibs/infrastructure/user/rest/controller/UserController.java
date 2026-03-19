@@ -1,4 +1,4 @@
-package com.monitoria.habibs.infraestructure.user.rest.controller;
+package com.monitoria.habibs.infrastructure.user.rest.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import com.monitoria.habibs.application.user.in.inputPort.CreateUserInputPort;
 import com.monitoria.habibs.application.user.in.inputPort.GetUserInputPort;
 import com.monitoria.habibs.application.user.in.inputPort.UpdateUserInputPort;
 import com.monitoria.habibs.application.user.in.output.UserOutput;
-import com.monitoria.habibs.infraestructure.user.rest.dto.UserRequestDTO;
-import com.monitoria.habibs.infraestructure.user.rest.dto.UserResponseDTO;
-import com.monitoria.habibs.infraestructure.user.rest.mapping.UserMapperRest;
+import com.monitoria.habibs.infrastructure.user.rest.dto.UserRequestDTO;
+import com.monitoria.habibs.infrastructure.user.rest.dto.UserResponseDTO;
+import com.monitoria.habibs.infrastructure.user.rest.mapping.UserMapperRest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

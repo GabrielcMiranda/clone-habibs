@@ -1,12 +1,12 @@
-package com.monitoria.habibs.infraestructure.user.persistence.adapter;
+package com.monitoria.habibs.infrastructure.user.persistence.adapter;
 
 import org.springframework.stereotype.Component;
 
 import com.monitoria.habibs.application.user.out.UserRepository;
 import com.monitoria.habibs.domain.model.User;
-import com.monitoria.habibs.infraestructure.user.persistence.entity.UserEntity;
-import com.monitoria.habibs.infraestructure.user.persistence.mapping.UserMapper;
-import com.monitoria.habibs.infraestructure.user.persistence.repository.UserRepositoryJPA;
+import com.monitoria.habibs.infrastructure.user.persistence.entity.UserEntity;
+import com.monitoria.habibs.infrastructure.user.persistence.mapping.UserMapper;
+import com.monitoria.habibs.infrastructure.user.persistence.repository.UserRepositoryJPA;
 
 import lombok.RequiredArgsConstructor;
 

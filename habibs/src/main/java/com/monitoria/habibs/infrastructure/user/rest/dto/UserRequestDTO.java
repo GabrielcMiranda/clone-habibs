@@ -1,4 +1,4 @@
-package com.monitoria.habibs.infraestructure.user.rest.dto;
+package com.monitoria.habibs.infrastructure.user.rest.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

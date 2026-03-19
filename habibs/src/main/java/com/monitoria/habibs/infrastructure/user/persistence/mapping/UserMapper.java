@@ -1,12 +1,12 @@
-package com.monitoria.habibs.infraestructure.user.persistence.mapping;
+package com.monitoria.habibs.infrastructure.user.persistence.mapping;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.monitoria.habibs.domain.model.User;
-import com.monitoria.habibs.infraestructure.user.persistence.entity.UserEntity;
+import com.monitoria.habibs.infrastructure.user.persistence.entity.UserEntity;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", implementationName = "PersistenceUserMapperImpl")
 public interface UserMapper {
     User toDomain(UserEntity userEntity);
     
