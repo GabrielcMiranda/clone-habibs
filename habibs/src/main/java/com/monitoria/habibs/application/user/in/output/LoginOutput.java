@@ -1,5 +1,5 @@
 package com.monitoria.habibs.application.user.in.output;
 
-public record AuthUserOutput(
+public record LoginOutput(
     String token
 ) {}
