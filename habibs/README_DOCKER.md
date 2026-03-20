@@ -4,6 +4,24 @@
 - Docker instalado
 - Docker Compose instalado
 
+## 🔧 Configuração de ambiente
+
+1. Crie um arquivo `.env` com base no `.env.example`:
+```bash
+cp .env.example .env
+```
+
+2. Ajuste ao menos as variáveis abaixo no `.env`:
+- `DB_PASSWORD`
+- `JWT_ISSUER`
+- `JWT_ACCESS_TOKEN_TTL_HOURS`
+- `JWT_PUBLIC_KEY_LOCATION`
+- `JWT_PRIVATE_KEY_LOCATION`
+
+3. Sobre as chaves JWT:
+- Se `public.pem` e `private.pem` já estiverem em `src/main/resources`, use `classpath:public.pem` e `classpath:private.pem`.
+- Se quiser chaves fora da imagem, monte os arquivos no container e use `file:/...`.
+
 ## 🚀 Comandos principais
 
 ### Subir os containers (aplicação + banco)
@@ -75,6 +93,10 @@ docker exec -it habibs-postgres psql -U postgres -d habibs
 ## 🔒 Segurança
 
 As senhas são lidas do arquivo `.env`, que **NÃO está no Git**.
+
+Para produção:
+- Não use `changeme`/senhas padrão.
+- Prefira chaves JWT externas (volume/secret) em vez de embutir na imagem.
 
 ## 🐛 Problemas comuns
 
