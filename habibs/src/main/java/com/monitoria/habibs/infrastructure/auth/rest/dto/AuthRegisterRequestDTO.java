@@ -1,7 +1,10 @@
 package com.monitoria.habibs.infrastructure.auth.rest.dto;
 
+import com.monitoria.habibs.domain.enums.RoleUser;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record AuthRegisterRequestDTO(
     @NotBlank(message = "Name is required")
@@ -14,6 +17,6 @@ public record AuthRegisterRequestDTO(
     @NotBlank(message = "Password is required")
     String password,
 
-    @NotBlank(message = "Role is required")
-    String role
+    @NotNull(message = "Role is required")
+    RoleUser role
 ) {}

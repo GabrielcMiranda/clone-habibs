@@ -8,7 +8,6 @@ import com.monitoria.habibs.application.user.in.inputPort.RegisterInputPort;
 import com.monitoria.habibs.application.user.in.output.UserOutput;
 import com.monitoria.habibs.application.user.mapping.UserMapper;
 import com.monitoria.habibs.application.user.out.UserRepository;
-import com.monitoria.habibs.domain.enums.RoleUser;
 import com.monitoria.habibs.domain.exception.EmailAlreadyExists;
 import com.monitoria.habibs.domain.model.User;
 
@@ -28,7 +27,7 @@ public class RegisterUseCase implements RegisterInputPort {
         }
 
         String hashedPassword = passwordEncoder.encode(command.password());
-        User user = User.create(command.name(), command.email(), hashedPassword, Enum.valueOf(RoleUser.class, command.role()));
+        User user = User.create(command.name(), command.email(), hashedPassword, command.role());
 
         userRepository.save(user);
         return userMapper.toOutput(user);
