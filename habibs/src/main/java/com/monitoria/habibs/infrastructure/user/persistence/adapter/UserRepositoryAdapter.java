@@ -1,5 +1,7 @@
 package com.monitoria.habibs.infrastructure.user.persistence.adapter;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import com.monitoria.habibs.application.user.out.UserRepository;
@@ -24,9 +26,9 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    public User findByEmail(String email) {
-        UserEntity userEntity = userRepositoryJPA.findByEmail(email);
-        return userMapper.toDomain(userEntity);
+    public Optional<User> findByEmail(String email) {
+        return userRepositoryJPA.findByEmail(email)
+                .map(userMapper::toDomain);
     }
 
     @Override

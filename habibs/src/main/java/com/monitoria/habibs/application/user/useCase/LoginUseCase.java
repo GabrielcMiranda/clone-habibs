@@ -8,6 +8,8 @@ import com.monitoria.habibs.application.user.in.inputPort.LoginInputPort;
 import com.monitoria.habibs.application.user.in.output.TokenOutput;
 import com.monitoria.habibs.application.user.out.AuthTokenProvider;
 import com.monitoria.habibs.application.user.out.UserRepository;
+import com.monitoria.habibs.domain.exception.InvalidPasswordException;
+import com.monitoria.habibs.domain.exception.UserNotFoundException;
 import com.monitoria.habibs.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -21,14 +23,11 @@ public class LoginUseCase implements LoginInputPort {
 
     @Override
     public TokenOutput login(LoginCommand command) {
-        User user = userRepository.findByEmail(command.email());
-
-        if (user == null) {
-            throw new IllegalArgumentException("Invalid email or password");
-        }
+        User user = userRepository.findByEmail(command.email())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + command.email()));
 
         if (!passwordEncoder.matches(command.password(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid email or password");
+            throw new InvalidPasswordException("Invalid email or password");
         }
 
         String token = authTokenProvider.generateAccessToken(user);

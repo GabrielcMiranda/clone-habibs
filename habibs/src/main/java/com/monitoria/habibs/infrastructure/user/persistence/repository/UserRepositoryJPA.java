@@ -1,5 +1,6 @@
 package com.monitoria.habibs.infrastructure.user.persistence.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,6 @@ import com.monitoria.habibs.infrastructure.user.persistence.entity.UserEntity;
 
 @Repository
 public interface UserRepositoryJPA extends JpaRepository<UserEntity, UUID>{
-    UserEntity findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
     boolean existsByEmail(String email);
 }

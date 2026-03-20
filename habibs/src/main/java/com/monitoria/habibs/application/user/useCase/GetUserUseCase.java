@@ -20,11 +20,8 @@ public class GetUserUseCase implements GetUserInputPort {
 
     @Override
     public UserOutput getUser(String email) {
-        User user = userRepository.findByEmail(email);
-
-        if (user == null) {
-            throw new UserNotFoundException("User not found with email: " + email);
-        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 
         return userMapper.toOutput(user);
     }
