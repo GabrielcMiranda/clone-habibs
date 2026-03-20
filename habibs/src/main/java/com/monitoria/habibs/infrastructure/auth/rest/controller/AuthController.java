@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.monitoria.habibs.application.user.in.command.CreateUserCommand;
+import com.monitoria.habibs.application.user.in.command.RegisterCommand;
 import com.monitoria.habibs.application.user.in.command.LoginCommand;
-import com.monitoria.habibs.application.user.in.inputPort.CreateUserInputPort;
 import com.monitoria.habibs.application.user.in.inputPort.GetUserInputPort;
 import com.monitoria.habibs.application.user.in.inputPort.LoginInputPort;
-import com.monitoria.habibs.application.user.in.output.LoginOutput;
+import com.monitoria.habibs.application.user.in.inputPort.RegisterInputPort;
+import com.monitoria.habibs.application.user.in.output.TokenOutput;
 import com.monitoria.habibs.application.user.in.output.UserOutput;
 import com.monitoria.habibs.infrastructure.auth.rest.dto.AuthLoginRequestDTO;
 import com.monitoria.habibs.infrastructure.auth.rest.dto.AuthLoginResponseDTO;
 import com.monitoria.habibs.infrastructure.auth.rest.dto.AuthProfileResponseDTO;
 import com.monitoria.habibs.infrastructure.auth.rest.dto.AuthRegisterRequestDTO;
-import com.monitoria.habibs.infrastructure.auth.rest.dto.AuthRegisterResponseDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,28 +33,26 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final LoginInputPort loginInputPort;
-    private final CreateUserInputPort createUserInputPort;
+    private final RegisterInputPort registerInputPort;
     private final GetUserInputPort getUserInputPort;
 
     @PostMapping("/login")
     public ResponseEntity<AuthLoginResponseDTO> login(@RequestBody @Valid AuthLoginRequestDTO request) {
-        LoginOutput output = loginInputPort.login(
+        TokenOutput output = loginInputPort.login(
                 new LoginCommand(request.email(), request.password()));
 
         return ResponseEntity.ok(new AuthLoginResponseDTO(output.token()));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthRegisterResponseDTO> register(@RequestBody @Valid AuthRegisterRequestDTO request) {
-        UserOutput output = createUserInputPort.createUser(
-                new CreateUserCommand(request.name(), request.email(), request.password(), request.role()));
+        public ResponseEntity<AuthLoginResponseDTO> register(@RequestBody @Valid AuthRegisterRequestDTO request) {
+        registerInputPort.register(
+                new RegisterCommand(request.name(), request.email(), request.password(), request.role()));
 
-        AuthRegisterResponseDTO response = new AuthRegisterResponseDTO(
-                output.name(),
-                output.email(),
-                output.role());
+        TokenOutput output = loginInputPort.login(
+            new LoginCommand(request.email(), request.password()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new AuthLoginResponseDTO(output.token()));
     }
 
     @GetMapping("/profile")

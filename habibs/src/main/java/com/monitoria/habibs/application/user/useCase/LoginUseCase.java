@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.monitoria.habibs.application.user.in.command.LoginCommand;
 import com.monitoria.habibs.application.user.in.inputPort.LoginInputPort;
-import com.monitoria.habibs.application.user.in.output.LoginOutput;
+import com.monitoria.habibs.application.user.in.output.TokenOutput;
 import com.monitoria.habibs.application.user.out.AuthTokenProvider;
 import com.monitoria.habibs.application.user.out.UserRepository;
 import com.monitoria.habibs.domain.model.User;
@@ -20,7 +20,7 @@ public class LoginUseCase implements LoginInputPort {
     private final AuthTokenProvider authTokenProvider;
 
     @Override
-    public LoginOutput login(LoginCommand command) {
+    public TokenOutput login(LoginCommand command) {
         User user = userRepository.findByEmail(command.email());
 
         if (user == null) {
@@ -32,6 +32,6 @@ public class LoginUseCase implements LoginInputPort {
         }
 
         String token = authTokenProvider.generateAccessToken(user);
-        return new LoginOutput(token);
+        return new TokenOutput(token);
     }
 }

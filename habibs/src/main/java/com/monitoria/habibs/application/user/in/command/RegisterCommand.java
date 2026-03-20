@@ -1,6 +1,6 @@
 package com.monitoria.habibs.application.user.in.command;
 
-public record CreateUserCommand(
+public record RegisterCommand(
     String name,
     String email,
     String password,

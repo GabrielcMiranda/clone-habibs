@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monitoria.habibs.application.user.in.command.UpdateUserCommand;
-import com.monitoria.habibs.application.user.in.inputPort.CreateUserInputPort;
 import com.monitoria.habibs.application.user.in.inputPort.GetUserInputPort;
+import com.monitoria.habibs.application.user.in.inputPort.RegisterInputPort;
 import com.monitoria.habibs.application.user.in.inputPort.UpdateUserInputPort;
 import com.monitoria.habibs.application.user.in.output.UserOutput;
 import com.monitoria.habibs.infrastructure.user.rest.dto.UserRequestDTO;
@@ -29,15 +29,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final CreateUserInputPort createUserInputPort;
+	private final RegisterInputPort registerInputPort;
     private final GetUserInputPort getUserInputPort;
     private final UpdateUserInputPort updateUserInputPort;
 	private final UserMapperRest userMapperRest;
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO request) {
-	UserOutput output = createUserInputPort.createUser(
-		userMapperRest.toCreateUserCommand(request));
+	UserOutput output = registerInputPort.register(
+		userMapperRest.toRegisterCommand(request));
 
 	UserResponseDTO response = userMapperRest.toUserResponseDTO(output);
 

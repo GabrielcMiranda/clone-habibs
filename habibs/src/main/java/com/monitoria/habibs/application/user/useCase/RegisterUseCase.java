@@ -3,8 +3,8 @@ package com.monitoria.habibs.application.user.useCase;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.monitoria.habibs.application.user.in.command.CreateUserCommand;
-import com.monitoria.habibs.application.user.in.inputPort.CreateUserInputPort;
+import com.monitoria.habibs.application.user.in.command.RegisterCommand;
+import com.monitoria.habibs.application.user.in.inputPort.RegisterInputPort;
 import com.monitoria.habibs.application.user.in.output.UserOutput;
 import com.monitoria.habibs.application.user.mapping.UserMapper;
 import com.monitoria.habibs.application.user.out.UserRepository;
@@ -16,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class RegisterUseCase implements CreateUserInputPort {
+public class RegisterUseCase implements RegisterInputPort {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserOutput createUser(CreateUserCommand command) {
+    public UserOutput register(RegisterCommand command) {
         if (userRepository.existsByEmail(command.email())) {
             throw new EmailAlreadyExists("Email already in use");
         }
