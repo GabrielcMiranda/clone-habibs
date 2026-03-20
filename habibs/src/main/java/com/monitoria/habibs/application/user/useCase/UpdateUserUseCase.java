@@ -23,11 +23,8 @@ public class UpdateUserUseCase implements UpdateUserInputPort {
 
     @Override
     public UserOutput updateUser(UpdateUserCommand command) {
-        User existingUser = userRepository.findByEmail(command.currentEmail());
-
-        if (existingUser == null) {
-            throw new UserNotFoundException("User not found with email: " + command.currentEmail());
-        }
+        User existingUser = userRepository.findByEmail(command.currentEmail())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + command.currentEmail()));
 
         String newEmail = command.email();
 

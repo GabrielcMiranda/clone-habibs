@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import com.monitoria.habibs.application.user.in.output.UserOutput;
 import com.monitoria.habibs.domain.model.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", implementationName = "ApplicationUserMapperImpl")
 public interface UserMapper {
     UserOutput toOutput(User user);
 }
